@@ -1,5 +1,5 @@
 {
-  "name": "MusicBox Content Server",
+  "name": "MusicBox_ContentServer",
   "description": "Metadata lookup for MusicBox",
   "version": "1.0.0",
   "dependencies": {
