@@ -1,0 +1,9 @@
+{
+  "name": "MusicBox Content Server",
+  "description": "Metadata lookup for MusicBox",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "*",
+    "xml2js": "*"
+  }
+}
