@@ -33,27 +33,37 @@ function queueSong(id){
 
 function buildAlbumArt(imgEle, res){
   var data = JSON.parse(res);
-  var source = "/api/art?song="+data.song.id;
+  var source = data.song.art;
   var test = imgEle.data("src") == null ? source : imgEle.data("src");
   if(source != imgEle.data("src")){
-    imgEle.data("src", source).attr("src", source).fadeOut().load(function(){
-      $(this).fadeIn();
+    imgEle.fadeOut("slow", function() {
+      $(this).data("src", source).attr("src", source).load(function(){
+        $(this).fadeIn();
+      });
     });
   }
-  
-  
 }
 
 function buildSongInfo(parentEle, res){
   var data = JSON.parse(res);
   var name = createElement("h2", {"class":"song-title"}, data.song.title);
-  var p = createElement("p");
+  var div = createElement("div", {"class":"row"});
+  var p = createElement("p", {"class":"col-xs-10"});
   var artist = createElement("span", {"class":"song-artist"}, data.song.artist);
   var br = createElement("br");
   var album = createElement("span", {"class":"song-album"}, data.song.album);
+  var likeHolder = createElement("div", {"class":"col-xs-2"});
+  var likes = createElement("span", null, Math.abs(data.song.score));
+  var space = createText(" ");
+  var icon = createElement("span", {"class":"glyphicon glyphicon-thumbs-" + data.song.score >= 0 ? "up":"down" });
   parentEle.html("");
   insertElementAt(name, parentEle[0]);
-  insertElementAt(p, parentEle[0]);
+  insertElementAt(p, div);
+  insertElementAt(likeHolder, div);
+  insertElementAt(likes, likeHolder);
+  insertElementAt(spance, likeHolder);
+  insertElementAt(icon, likeHolder);
+  insertElementAt(div, parentEle[0]);
   insertElementAt(album, p);
   insertElementAt(br, p);
   insertElementAt(artist, p);
@@ -150,7 +160,7 @@ function buildAlbumList(parentEle, res){
     var holder = createElement("div", {"class":"album-holder"});
     var holderInner = createElement("div", {"class":"place-holder album-holder-inner"})
     var a = createElement("a", {"href":"#", "data-toggle":"modal", "data-target":"#album-song-list", "data-album-id":album})
-    var img = createElement("img", {"src":"resources/loading.gif", "class":"img-responsive album-art loading"});
+    var img = createElement("img", {"src":"http://placehold.it/250x250", "class":"img-responsive album-art loading"});
     var info = createElement("div", {"class":"text-center"});
     var title = createElement("p", {"class":"album-artist"}, data[album].title);
     var artist = createElement("p", {"class":"album-artist lead small"}, data[album].artist);
