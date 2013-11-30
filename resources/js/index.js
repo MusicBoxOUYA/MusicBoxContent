@@ -50,13 +50,13 @@ function onSongRefresh(data) {
 
 function onSongChange(data) {
   buildAlbumArt($("#album-art"), $(".color-1"), data);
-  buildSongInfo($("#song-info"), data);
   setButtonSongId($("#like-button"), data);
   setButtonSongId($("#dislike-button"), data);
 }
 
 function onQueueRefresh(data) {
   buildQueueTable($("#queue"),data);
+  buildSongInfo($("#song-info"), data);
 }
 
 function startCall(){
