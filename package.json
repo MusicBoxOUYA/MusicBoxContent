@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "express": "*",
-    "xml2js": "*"
+    "xml2js": "*",
+	"memjs": "*"
   }
 }
