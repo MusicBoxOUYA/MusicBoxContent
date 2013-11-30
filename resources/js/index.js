@@ -7,11 +7,9 @@ function call(){
     var data = JSON.parse(result);
     var test = currentSong =! null ? currentSong : data.song.id;
     if(test == data.song.id) { // same song
-      window.console&&console.log("same song");
       onSongRefresh(data);
     }
     else { // new song
-      window.console&&console.log("new song");
       onSongChange(data);
       onSongRefresh(data);
       currentSong = data.song.id;
