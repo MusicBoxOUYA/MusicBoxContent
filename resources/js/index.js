@@ -14,7 +14,6 @@ function call(){
       onSongRefresh(data);
       currentSong = data.song.id;
     }
-    
   }, function(data){
     stopCall();
     $("#connection-error-alert").modal({
