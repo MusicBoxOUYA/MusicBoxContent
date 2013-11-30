@@ -25,7 +25,7 @@ function onStart() {
   $("#album-art").removeClass("loading");
   request("api/getIP", "", function(result){
     $("#connection-info").text("Visit http://"+result+":8080/ to queue songs");
-  }
+  });
 }
 
 function onStop() {
