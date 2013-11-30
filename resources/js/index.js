@@ -46,6 +46,7 @@ function onStop() {
 
 function onSongRefresh(data) {
   buildSongTime($(".song-progress"), data);
+  buildSongInfo($("#song-info"), data);
 }
 
 function onSongChange(data) {
@@ -56,7 +57,6 @@ function onSongChange(data) {
 
 function onQueueRefresh(data) {
   buildQueueTable($("#queue"),data);
-  buildSongInfo($("#song-info"), data);
 }
 
 function startCall(){
