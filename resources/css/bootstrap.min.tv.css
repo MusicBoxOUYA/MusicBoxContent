@@ -680,7 +680,7 @@ a.badge:hover,a.badge:focus{color:#ffffff;text-decoration:none;cursor:pointer;}
 .btn .badge{position:relative;top:-1px;}
 a.list-group-item.active>.badge,.nav-pills>.active>a>.badge{color:#428bca;background-color:#ffffff;}
 .nav-pills>li>a>.badge{margin-left:3px;}
-.jumbotron{padding:30px;margin-bottom:30px;font-size:21px;font-weight:200;line-height:2.1428571435;color:#000000;background-color:black;}.jumbotron h1{line-height:1;color:#ffffff;}
+.jumbotron{padding:30px;margin-bottom:30px;font-size:21px;font-weight:200;line-height:2.1428571435;color:white;background-color:black;}.jumbotron h1{line-height:1;color:white;}
 .jumbotron p{line-height:1.4;}
 .container .jumbotron{border-radius:6px;}
 @media screen and (min-width:768px){.jumbotron{padding-top:48px;padding-bottom:48px;}.container .jumbotron{padding-left:60px;padding-right:60px;} .jumbotron h1{font-size:63px;}}
