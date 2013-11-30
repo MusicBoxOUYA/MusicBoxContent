@@ -46,16 +46,14 @@ function onSongRefresh(data) {
 }
 
 function onSongChange(data) {
-  buildAlbumArt($("#album-art"), result);
-  buildSongInfo($("#song-info"), result);
-  setColor($(".color-1"), $("#album-art"));
-  setButtonSongId($("#like-button"), result);
-  setButtonSongId($("#dislike-button"), result);
-  
+  buildAlbumArt($("#album-art"), data);
+  buildSongInfo($("#song-info"), data);
+  setButtonSongId($("#like-button"), data);
+  setButtonSongId($("#dislike-button"), data);
 }
 
 function onQueueRefresh(data) {
-  buildQueueTable($("#queue"), JSON.parse(result));
+  buildQueueTable($("#queue"),data);
 }
 
 function startCall(){
