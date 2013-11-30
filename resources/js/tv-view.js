@@ -42,7 +42,7 @@ function onSongChange(data) {
 }
 
 function onQueueRefresh(data) {
-  buildQueueTable($("#queue"), JSON.parse(result));
+  buildQueueTable($("#queue"), JSON.parse(data));
 }
 
 function startCall(){

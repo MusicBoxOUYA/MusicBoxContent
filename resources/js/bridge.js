@@ -31,8 +31,7 @@ function queueSong(id){
   });
 }
 
-function buildAlbumArt(imgEle, ccEle, res){
-  var data = JSON.parse(res);
+function buildAlbumArt(imgEle, ccEle, data){
   var source = data.song.art;
   imgEle.fadeOut("slow", function() {
     $(this).data("src", source).attr("src", source).load(function(){
@@ -42,8 +41,7 @@ function buildAlbumArt(imgEle, ccEle, res){
   });
 }
 
-function buildSongInfo(parentEle, res){
-  var data = JSON.parse(res);
+function buildSongInfo(parentEle, data){
   var name = createElement("h2", {"class":"song-title"}, data.song.title);
   var div = createElement("div", {"class":"row"});
   var p = createElement("p", {"class":"col-xs-10"});
@@ -67,19 +65,18 @@ function buildSongInfo(parentEle, res){
   insertElementAt(artist, p);
 }
 
-function buildSongTime(parentEle, res){
-    var data = JSON.parse(res);
-    var currentMinutes = Math.floor((data.position/1000)/60);
-    var currentSeconds = Math.floor((data.position/1000)%60);
-    if(currentSeconds < 10){
-      currentSeconds = "0" + currentSeconds;
-    }
-    var durationMinutes = Math.floor((data.duration/1000)/60);
-    var durationSeconds = Math.floor((data.duration/1000)%60);
-    if(durationSeconds < 10){
-      durationSeconds = "0" + durationSeconds;
-    }
-    var currentTimeParent = createElement("div", {"class":"small-1 columns"});
+function buildSongTime(parentEle, data){
+  var currentMinutes = Math.floor((data.position/1000)/60);
+  var currentSeconds = Math.floor((data.position/1000)%60);
+  if(currentSeconds < 10){
+    currentSeconds = "0" + currentSeconds;
+  }
+  var durationMinutes = Math.floor((data.duration/1000)/60);
+  var durationSeconds = Math.floor((data.duration/1000)%60);
+  if(durationSeconds < 10){
+    durationSeconds = "0" + durationSeconds;
+  }
+  var currentTimeParent = createElement("div", {"class":"small-1 columns"});
   var currentTime = createElement("span", {"class":""}, currentMinutes + ":" + currentSeconds);
   var durationTime = createElement("span", {"class":""}, durationMinutes + ":" + durationSeconds);
   var percent = ((data.position/data.duration)*100);
@@ -97,9 +94,8 @@ function setColor(image, elements) {
   elements.css("color", "rgb(" + colors[1][0] + "," + colors[1][1] + "," + colors[1][2] + ")");
 }
 
-function buildUpNext(parentEle, res){
+function buildUpNext(parentEle, data){
   parentEle.html("");
-  var data = JSON.parse(res);
   if ( data.length == 0 )
 	return;
   var p = createElement("p");
@@ -116,12 +112,11 @@ function buildUpNext(parentEle, res){
     insertElementAt(p, parentEle[0]);
 }
 
-function setButtonSongId(parentEle, res){
-  var data = JSON.parse(res);
+function setButtonSongId(parentEle, data){
   parentEle.data("song-id", data.song.id);
 }
 
-function buildQueueTable(parentEle, res){
+function buildQueueTable(parentEle, data){
   var table = new Table(["order", "title", "album", "artist", "score"], ["#", "Song", "Album", "Artist", "+1"]);
   parentEle.html("");
   var counter = 1;
@@ -129,7 +124,7 @@ function buildQueueTable(parentEle, res){
     return counter++;
   });
   table.setProperties("table", {"class":"table table-condensed table-striped"});
-  var html = table.buildTable(res);
+  var html = table.buildTable(data);
   insertElementAt(html, parentEle[0]);
 }
 
@@ -156,9 +151,8 @@ function buildSongTable(parentEle, res){
   })
 }
 
-function buildAlbumList(parentEle, res){
+function buildAlbumList(parentEle, data){
   var albumSongs = [];
-  var data = JSON.parse(res);
   parentEle.html("");
   for(album in data){
     var div = createElement("div", {"class":"col-sm-3"});
