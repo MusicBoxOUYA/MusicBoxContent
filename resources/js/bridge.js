@@ -45,9 +45,7 @@ function buildAlbumArt(imgEle, ccEle, data){
   var source = data.song.art;
   imgEle.fadeOut("slow", function() {
     $(this).data("src", source).attr("src", source).load(function(){
-      $(this).fadeIn({complete: function() {
-        setColor(imgEle, ccEle);
-      }});
+      $(this).fadeIn();
     });
   });
 }
@@ -96,13 +94,6 @@ function buildSongTime(parentEle, data){
   insertElementAt(currentTime,parentEle[0]);
   insertElementAt(progressPercent,parentEle[1]);
   insertElementAt(durationTime,parentEle[2]);
-}
-
-function setColor(image, elements) {
-  var thief = new ColorThief();
-  var colors = thief.getPalette(image[0], 2);
-  $("body").css("background-color", "rgb(" + colors[0][0] + "," + colors[0][1] + "," + colors[0][2] + ")");
-  elements.css("color", "rgb(" + colors[1][0] + "," + colors[1][1] + "," + colors[1][2] + ")");
 }
 
 function buildUpNext(parentEle, data){
