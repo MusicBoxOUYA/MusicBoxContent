@@ -13,16 +13,53 @@ function request(url, sendData, callBack, errorCallBack){
   })
 }
 
-function likeSong(id){
+function setCookie(c_name, value, exdays) {
+  var exdate = new Date();
+  exdate.setDate(exdate.getDate() + exdays);
+  var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+  document.cookie=c_name + "=" + c_value;
+}
+
+function getCookie(c_name) {
+  var c_value = document.cookie;
+  var c_start = c_value.indexOf(" " + c_name + "=");
+  if (c_start == -1) {
+    c_start = c_value.indexOf(c_name + "=");
+  }
+  if (c_start == -1) {
+    c_value = null;
+  }
+  else {
+    c_start = c_value.indexOf("=", c_start) + 1;
+    var c_end = c_value.indexOf(";", c_start);
+    if (c_end == -1) {
+      c_end = c_value.length;
+    }
+    c_value = unescape(c_value.substring(c_start,c_end));
+  }
+  return c_value;
+}
+
+function likeSong(id, parentEle) {
+  var cookie = getCookie("songs");
+  var songs = cookie != null ? JSON.parse(cookie) : Array();
+  songs.push(id);
+  setCookie("songs", JSON.stringify(songs), 1);
   request("api/like", "song="+id, function(data){
     console.log("Liking song");
   });
+  parentEle.prop("disabled", true);
 }
 
-function dislikeSong(id){
+function dislikeSong(id, parentEle) {
+  var cookie = getCookie("songs");
+  var songs = cookie != null ? JSON.parse(cookie) : Array();
+  songs.push(id);
+  setCookie("songs", JSON.stringify(songs), 1);
   request("api/dislike", "song="+id, function(data){
     console.log("Disliking song");
   });
+  parentEle.prop("disabled", true);
 }
 
 function queueSong(id){
@@ -114,7 +151,17 @@ function buildUpNext(parentEle, data){
 }
 
 function setButtonSongId(parentEle, data){
-  parentEle.data("song-id", data.song.id);
+  var cookie = getCookie("songs");
+  var songs = cookie != null ? JSON.parse(cookie) : Array();
+  if($.inArray(data.song.id, cookie) == -1) {
+    parentEle.prop("disabled", false);
+    parentEle.data("song-id", data.song.id);
+  }
+  else {
+    parentEle.prop("disabled", true);
+    parentEle.data("song-id", 0);
+  }
+  
 }
 
 function buildQueueTable(parentEle, data){

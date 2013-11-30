@@ -75,18 +75,10 @@ $( document ).ready(function(){
     startCall();
   })
   $("#like-button").click(function(){
-    likeSong($(this).data("song-id"));
-    $(this).attr("disabled", "disabled").delay(10000).queue(function(next){
-      $(this).removeAttr("disabled");
-      next();
-    });
+    likeSong($(this).data("song-id"), $(this));
   });
   $("#dislike-button").click(function(){
-    dislikeSong($(this).data("song-id"));
-    $(this).attr("disabled", "disabled").delay(10000).queue(function(next){
-      $(this).removeAttr("disabled");
-      next();
-    });
+    dislikeSong($(this).data("song-id"), $(this));
   });
 });
 
