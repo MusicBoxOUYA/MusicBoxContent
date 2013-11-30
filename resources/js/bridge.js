@@ -62,7 +62,7 @@ function buildSongInfo(parentEle, data){
   var likeHolder = createElement("div", {"class":"col-xs-2"});
   var likes = createElement("span", null, Math.abs(data.song.score));
   var space = createText(" ");
-  var icon = createElement("span", {"class":"glyphicon glyphicon-thumbs-" + data.song.score >= 0 ? "up":"down" });
+  var icon = createElement("span", {"class":"glyphicon glyphicon-thumbs-" + (data.song.score >= 0 ? "up":"down") });
   parentEle.html("");
   insertElementAt(name, parentEle[0]);
   insertElementAt(p, div);
