@@ -1,6 +1,6 @@
 function call(){
   request("api/library", "", function(result){
-    buildAlbumList($("#album-list"), result);
+    buildAlbumList($("#album-list"), JSON.parse(result));
   }, function(){
     $("#connection-error-alert").modal({
       keyboard: false,
