@@ -4,9 +4,7 @@ var currentSong;
 //called every second to determine 
 function call(){
   request("api/nowplaying", "", function(result){
-    window.console&&console.log(result);
     var data = JSON.parse(result);
-    window.console&&console.log(data);
     var test = currentSong =! null ? currentSong : data.song.id;
     if(test == data.song.id) { // same song
       onSongRefresh(data);
@@ -36,7 +34,7 @@ function onSongRefresh(data) {
 }
 
 function onSongChange(data) {
-  buildAlbumArt($("#album-art"), data);
+  buildAlbumArt($("#album-art"), $(".color-1"), data);
   buildSongInfo($("#song-info"), data);
   setButtonSongId($("#like-button"), data);
   setButtonSongId($("#dislike-button"), data);
