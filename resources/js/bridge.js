@@ -35,8 +35,9 @@ function buildAlbumArt(imgEle, ccEle, data){
   var source = data.song.art;
   imgEle.fadeOut("slow", function() {
     $(this).data("src", source).attr("src", source).load(function(){
-      setColor(this, ccEle);
-      $(this).fadeIn();
+      $(this).fadeIn({complete: function() {
+        setColor(imgEle, ccEle);
+      }});
     });
   });
 }
