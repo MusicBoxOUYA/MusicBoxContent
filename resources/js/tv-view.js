@@ -40,6 +40,10 @@ function onSongRefresh(data) {
 
 function onSongChange(data) {
   buildAlbumArt($("#album-art"), $(".color-1"), data);
+  if ( data.song.art == "" )
+ 	 $("#album-art").parent().css("background-color", "black");
+  else
+	 $("#album-art").parent().css("background-color", "#646464");
   setButtonSongId($("#like-button"), data);
   setButtonSongId($("#dislike-button"), data);
 }
