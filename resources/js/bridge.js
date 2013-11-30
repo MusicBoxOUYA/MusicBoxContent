@@ -126,7 +126,7 @@ function buildUpNext(parentEle, data){
 function setButtonSongId(parentEle, data){
   var cookie = $.cookie("songs");
   var songs = cookie != null ? JSON.parse(cookie) : Array();
-  if($.inArray(data.song.id, cookie) == -1) {
+  if($.inArray(cookie, data.song.id) != -1) {
     parentEle.removeAttr("disabled");
     parentEle.data("song-id", data.song.id);
   }
