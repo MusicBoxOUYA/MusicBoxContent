@@ -31,46 +31,39 @@ function queueSong(id){
   });
 }
 
-function buildAlbumArt(imgEle, res){
+function buildAlbumArt(imgEle, ccEle, res){
   var data = JSON.parse(res);
   var source = data.song.art;
-  var test = imgEle.data("src") == null ? source : imgEle.data("src");
-  if(source != imgEle.data("src")){
-    imgEle.fadeOut("slow", function() {
-      $(this).data("src", source).attr("src", source).load(function(){
-        $(this).fadeIn();
-      });
+  imgEle.fadeOut("slow", function() {
+    $(this).data("src", source).attr("src", source).load(function(){
+      setColor(this, ccEle);
+      $(this).fadeIn();
     });
-  }
 }
 
 function buildSongInfo(parentEle, res){
   var data = JSON.parse(res);
-  var id = data.song.id;
-  var test = $(parentEle).data("playing") == null ? id : $(parentEle).data("playing");
-  if (id != $(parentEle).data("playing") ){
-    var name = createElement("h2", {"class":"song-title"}, data.song.title);
-    var div = createElement("div", {"class":"row"});
-    var p = createElement("p", {"class":"col-xs-10"});
-    var artist = createElement("span", {"class":"song-artist"}, data.song.artist);
-    var br = createElement("br");
-    var album = createElement("span", {"class":"song-album"}, data.song.album);
-    var likeHolder = createElement("div", {"class":"col-xs-2"});
-    var likes = createElement("span", null, Math.abs(data.song.score));
-    var space = createText(" ");
-    var icon = createElement("span", {"class":"glyphicon glyphicon-thumbs-" + (data.song.score >= 0 ? "up":"down" ) });
-    parentEle.html("");
-    insertElementAt(name, parentEle[0]);
-    insertElementAt(p, div);
-    insertElementAt(likeHolder, div);
-    insertElementAt(likes, likeHolder);
-    insertElementAt(space, likeHolder);
-    insertElementAt(icon, likeHolder);
-    insertElementAt(div, parentEle[0]);
-    insertElementAt(album, p);
-    insertElementAt(br, p);
-    insertElementAt(artist, p);
-  }
+  var name = createElement("h2", {"class":"song-title"}, data.song.title);
+  var div = createElement("div", {"class":"row"});
+  var p = createElement("p", {"class":"col-xs-10"});
+  var artist = createElement("span", {"class":"song-artist"}, data.song.artist);
+  var br = createElement("br");
+  var album = createElement("span", {"class":"song-album"}, data.song.album);
+  var likeHolder = createElement("div", {"class":"col-xs-2"});
+  var likes = createElement("span", null, Math.abs(data.song.score));
+  var space = createText(" ");
+  var icon = createElement("span", {"class":"glyphicon glyphicon-thumbs-" + data.song.score >= 0 ? "up":"down" });
+  parentEle.html("");
+  insertElementAt(name, parentEle[0]);
+  insertElementAt(p, div);
+  insertElementAt(likeHolder, div);
+  insertElementAt(likes, likeHolder);
+  insertElementAt(space, likeHolder);
+  insertElementAt(icon, likeHolder);
+  insertElementAt(div, parentEle[0]);
+  insertElementAt(album, p);
+  insertElementAt(br, p);
+  insertElementAt(artist, p);
 }
 
 function buildSongTime(parentEle, res){
@@ -94,6 +87,13 @@ function buildSongTime(parentEle, res){
   insertElementAt(currentTime,parentEle[0]);
   insertElementAt(progressPercent,parentEle[1]);
   insertElementAt(durationTime,parentEle[2]);
+}
+
+function setColor(image, elements) {
+  var thief = new ColorThief();
+  var colors = thief.getPalette(image[0], 2);
+  $("body").css("background-color", "rgb(" + colors[0][0] + "," + colors[0][1] + "," + colors[0][2] + ")");
+  elements.css("color", "rgb(" + colors[1][0] + "," + colors[1][1] + "," + colors[1][2] + ")");
 }
 
 function buildUpNext(parentEle, res){
