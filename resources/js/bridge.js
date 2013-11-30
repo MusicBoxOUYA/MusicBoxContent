@@ -39,7 +39,7 @@ function buildAlbumArt(imgEle, ccEle, res){
       setColor(this, ccEle);
       $(this).fadeIn();
     });
-  }
+  });
 }
 
 function buildSongInfo(parentEle, res){
