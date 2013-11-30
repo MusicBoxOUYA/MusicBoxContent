@@ -12,7 +12,6 @@ function call(){
     else { // new song
       onSongChange(data);
       onSongRefresh(data);
-      currentSong = test;
     }
     
   });
