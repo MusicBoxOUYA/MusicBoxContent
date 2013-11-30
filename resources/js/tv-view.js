@@ -4,7 +4,9 @@ var currentSong;
 //called every second to determine 
 function call(){
   request("api/nowplaying", "", function(result){
+    window.console&&console.log(result);
     var data = JSON.parse(result);
+    window.console&&console.log(data);
     var test = currentSong =! null ? currentSong : data.song.id;
     if(test == data.song.id) { // same song
       onSongRefresh(data);
