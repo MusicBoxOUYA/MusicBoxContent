@@ -21,7 +21,7 @@ function likeSong(id, parentEle) {
   request("api/like", "song="+id, function(data){
     console.log("Liking song");
   });
-  $(".like-dislike").prop("disabled", true);
+  $(".like-dislike").attr("disabled", "disabled");
 }
 
 function dislikeSong(id, parentEle) {
@@ -32,7 +32,7 @@ function dislikeSong(id, parentEle) {
   request("api/dislike", "song="+id, function(data){
     console.log("Disliking song");
   });
-  $(".like-dislike").prop("disabled", true);
+  $(".like-dislike").attr("disabled", "disabled");
 }
 
 function queueSong(id){
@@ -127,11 +127,11 @@ function setButtonSongId(parentEle, data){
   var cookie = $.cookie("songs");
   var songs = cookie != null ? JSON.parse(cookie) : Array();
   if($.inArray(data.song.id, cookie) == -1) {
-    parentEle.prop("disabled", false);
+    parentEle.removedAttr("disabled");
     parentEle.data("song-id", data.song.id);
   }
   else {
-    parentEle.prop("disabled", true);
+    parentEle.attr("disabled", "disabled");
     parentEle.data("song-id", 0);
   }
   
