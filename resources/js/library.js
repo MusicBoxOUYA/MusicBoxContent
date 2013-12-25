@@ -9,15 +9,11 @@ function call(){
   });
 }
 
-function startCall(){
-  window.console&&console.log("Starting Call");
-  setTimeout(call, 1000);
-}
 
 $( document ).ready(function(){
-  startCall();
+  call();
   $("#connection-error-alert").on("hidden.bs.modal", function () {
-    startCall();
+    call();
   })
 });
 call();
