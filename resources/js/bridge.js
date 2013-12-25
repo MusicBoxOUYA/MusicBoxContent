@@ -143,7 +143,7 @@ function buildQueueTable(parentEle, data){
 }
 
 function buildSongTable(parentEle, res){
-  var table = new Table(["title", "album", "artist", "score", "add"], ["Song", "Album", "Artist", "+1", ""]);
+  var table = new Table(["title", "score", "add"], ["Song", "+1", ""]);
   parentEle.html("");
   table.setProperties("table", {"class":"table table-condensed table-striped"});
   table.addAdvancedColumnProcessor("add", function(data){
