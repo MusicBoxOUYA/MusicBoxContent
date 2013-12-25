@@ -43,11 +43,13 @@ function queueSong(id){
 
 function buildAlbumArt(imgEle, ccEle, data){
   var source = data.song.art;
-  imgEle.fadeOut("slow", function() {
-    $(this).data("src", source).attr("src", source).load(function(){
-      $(this).fadeIn();
+  if(imgEle.data("src") != source) {
+    imgEle.fadeOut("slow", function() {
+      $(this).data("src", source).attr("src", source).load(function(){
+        $(this).fadeIn();
+      });
     });
-  });
+  }
 }
 
 function buildSongInfo(parentEle, data){
