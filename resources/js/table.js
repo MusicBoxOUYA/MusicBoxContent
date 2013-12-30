@@ -3,6 +3,9 @@ function Table(col, header){
   this.names = cloneArray(col);
   this.tableProperties = {"table":{}, "head-row":{}, "head-data":{},"body-row":{}, "body-data":{}};
   this.columnProcesses = [];
+  this.headerProperties = [];
+  this.columnProperties = [];
+  this.headerProcesses = [];
   this.advancedColumnProcesses = [];
   if(header != undefined){
     for(var i = 0; header.length > i; i++){
@@ -25,8 +28,16 @@ function Table(col, header){
     setObject(this.tableProperties[type], prop);
   }
 
+  this.addColumnProperty = function(col, proc){
+    this.columnProperties[col] = proc;
+  }
+
+  this.addHeaderProcessor = function(col, proc){
+    this.headerProcesses[col] = proc;
+  }
+
   this.addColumnProcessor = function(col, proc){
-    this.columnProcesses[col] = proc; 
+    this.columnProcesses[col] = proc;
   }
 
   this.addAdvancedColumnProcessor = function(col, proc){
@@ -40,14 +51,33 @@ function Table(col, header){
     var body = createElement("tbody");
 
     for(row in this.names){
-      insertElementAt(createElement("th", this.tableProperties["head-data"], this.names[row]), headRow);
+      var properties = cloneArray(this.tableProperties["head-data"]);
+      var data = this.names[row];
+      for (var attrname in this.columnProperties[this.columns[row]]) { properties[attrname] = this.columnProperties[this.columns[row]][attrname]; }
+      console.log(properties);
+      var header = createElement("th", properties);
+      if(this.columns[row] in this.headerProcesses){
+        data = this.headerProcesses[this.columns[row]](data);
+      }
+      if(typeof data == "object")
+        insertElementAt(data, header);
+      else
+        header.innerHTML = data;
+      insertElementAt(header, headRow);
     }
     for(row in rows){
+      var properties = cloneArray(this.tableProperties["body-data"]);
       var bodyRow = createElement("tr", this.tableProperties["body-row"]);
       var workingRow = rows[row];
+
       for(col in this.columns){
+        console.log(this.tableProperties["body-data"]);
+        var properties = cloneArray(this.tableProperties["body-data"]);
         var data = workingRow[this.columns[col]];
-        var cell = createElement("td", this.tableProperties["body-data"]);
+        for (var attrname in this.columnProperties[this.columns[col]]) { properties[attrname] = this.columnProperties[this.columns[col]][attrname]; }
+        console.log(properties);
+        var cell = createElement("td", properties);
+
         if(this.columns[col] in this.columnProcesses){
           data = this.columnProcesses[this.columns[col]](data);
         }
@@ -56,7 +86,7 @@ function Table(col, header){
         }
         if(typeof data == "object")
           insertElementAt(data, cell)
-        else  
+        else
           cell.innerHTML = data;
         insertElementAt(cell, bodyRow);
       }
