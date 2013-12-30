@@ -147,7 +147,7 @@ function buildSongTable(parentEle, res){
   parentEle.html("");
   table.setProperties("table", {"class":"table table-condensed table-striped"});
   table.addAdvancedColumnProcessor("add", function(data){
-    button = createElement("button", {"class":"btn btn-info btn-sm"}, "Add To Queue");
+    var button = createElement("button", {"class":"btn btn-info btn-sm pull-right"}, "Add To Queue");
     $(button).click(function(){
       $(this).attr("disabled", "disabled").delay(10000).queue(function(next){
         $(this).removeAttr("disabled");
@@ -160,9 +160,6 @@ function buildSongTable(parentEle, res){
   });
   var html = table.buildTable(res);
   insertElementAt(html, parentEle[0]);
-  parentEle.load(function(){
-    alert("loaded");
-  })
 }
 
 function buildAlbumList(parentEle, data){
