@@ -165,6 +165,8 @@ function buildSongTable(parentEle, res){
 function buildAlbumList(parentEle, data){
   var albumSongs = [];
   parentEle.html("");
+  var rows = [];
+  var currentRow = 0;
   for(album in data){
     var div = createElement("div", {"class":"col-sm-3"});
     var holder = createElement("div", {"class":"album-holder"});
@@ -174,12 +176,18 @@ function buildAlbumList(parentEle, data){
     var info = createElement("div", {"class":"text-center"});
     var title = createElement("p", {"class":"album-artist"}, data[album].title);
     var artist = createElement("p", {"class":"album-artist lead small"}, data[album].artist);
-    
+
     var source = data[album].songs[0].art;
     $(img).attr("src", source).load(function(){
       $(this).hide().removeClass("loading").fadeIn();
     });
     
+    if(album % 4 == 0 && data.length != album + 1) {
+      currentRow++;
+      rows[currentRow] = createElement("div", {"class":"row"});
+      insertElementAt(rows[currentRow], parentEle[0]);
+    }
+
     insertElementAt(img, holderInner);
     insertElementAt(holderInner, a);
     insertElementAt(a, holder);
@@ -187,15 +195,20 @@ function buildAlbumList(parentEle, data){
     insertElementAt(artist, info);
     insertElementAt(holder, div);
     insertElementAt(info, div);
-    insertElementAt(div, parentEle[0]);
+    insertElementAt(div, rows[currentRow]);
+
+
     albumSongs.push(data[album].songs);
     $(a).data("songs", data[album].songs);
     $(a).data("title", data[album].title);
     $(a).click(function(){
       $this = $(this);
       $("#album-list-title").html($this.data("title"));
-      buildSongTable($("#album-song-table"), $(this).data("songs"));
+      buildSongTable($("#album-song-table"), $this.data("songs"));
     });
+    
+
+    
   }
   return albumSongs;
 }
