@@ -182,7 +182,7 @@ function buildAlbumList(parentEle, data){
       $(this).hide().removeClass("loading").fadeIn();
     });
     
-    if(album % 4 == 0 && data.length != album + 1) {
+    if(album % 4 == 0) {
       currentRow++;
       rows[currentRow] = createElement("div", {"class":"row"});
       insertElementAt(rows[currentRow], parentEle[0]);
@@ -197,7 +197,6 @@ function buildAlbumList(parentEle, data){
     insertElementAt(info, div);
     insertElementAt(div, rows[currentRow]);
 
-
     albumSongs.push(data[album].songs);
     $(a).data("songs", data[album].songs);
     $(a).data("title", data[album].title);
@@ -206,9 +205,6 @@ function buildAlbumList(parentEle, data){
       $("#album-list-title").html($this.data("title"));
       buildSongTable($("#album-song-table"), $this.data("songs"));
     });
-    
-
-    
   }
   return albumSongs;
 }
